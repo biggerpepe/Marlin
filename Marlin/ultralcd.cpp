@@ -5702,6 +5702,14 @@ void lcd_reset_alert_level() { lcd_status_message_level = 0; }
     uint8_t  ADCKeyNo;
   } _stADCKeypadTable_;
 
+  // IG07 GLP: A quanto pare nella ANET A8 i tasti UP e DOWN sono invertiti
+  //           come funzionalità.   
+  //           Nella mia A8 i valori i valori letti sono:
+  //           LEFT...:  345-356
+  //           RIGHT..: 1908-1943
+  //           UP.....: 2618-2632 (funziona come DOWN)
+  //           DOWN...:  669-676  (funziona come UP)
+  //           ENTER..: 1232-1258
   static const _stADCKeypadTable_ stADCKeyTable[] PROGMEM = {
     // VALUE_MIN, VALUE_MAX, KEY
     { 4000, 4096, BLEN_REPRAPWORLD_KEYPAD_F1 + 1 },     // F1
@@ -5709,8 +5717,8 @@ void lcd_reset_alert_level() { lcd_status_message_level = 0; }
     { 4000, 4096, BLEN_REPRAPWORLD_KEYPAD_F3 + 1 },     // F3
     {  300,  500, BLEN_REPRAPWORLD_KEYPAD_LEFT + 1 },   // LEFT
     { 1900, 2200, BLEN_REPRAPWORLD_KEYPAD_RIGHT + 1 },  // RIGHT
-    {  570,  870, BLEN_REPRAPWORLD_KEYPAD_UP + 1 },     // UP
-    { 2670, 2870, BLEN_REPRAPWORLD_KEYPAD_DOWN + 1 },   // DOWN
+    {  570,  870, BLEN_REPRAPWORLD_KEYPAD_UP + 1 },     // UP (funziona come DOWN)
+    { 2600, 2870, BLEN_REPRAPWORLD_KEYPAD_DOWN + 1 },   // DOWN (funziona come UP)
     { 1150, 1450, BLEN_REPRAPWORLD_KEYPAD_MIDDLE + 1 }, // ENTER
   };
 
